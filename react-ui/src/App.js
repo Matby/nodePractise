@@ -33,7 +33,7 @@ class App extends Component {
           )
         })}
         
-        {/*<form action = "http://localhost:3000/users" method="post">*/}
+        {/*<form action = "http://34.244.30.205:3000/users" method="post">*/}
         <form onSubmit={this.handleNewUser}>
           <label>
             Nimi:
@@ -52,7 +52,7 @@ class App extends Component {
   }
   
   componentDidMount(){    
-      fetch('http://localhost:3000/users').then(results => {
+      fetch('http://34.244.30.205:3000/users').then(results => {
       return results.json();
       }).then(data => {
         let users = data;
@@ -63,7 +63,7 @@ class App extends Component {
   removeUser(user, e){
     e.preventDefault();
     alert("remove user"+user);
-    fetch('http://localhost:3000/users/'+user._id, {
+    fetch('http://34.244.30.205:3000/users/'+user._id, {
       method: 'delete'
   }).then(response =>
     response.json().then(json => {
@@ -82,7 +82,7 @@ handleNewUser(e){
     var name = data.get('name');
     var position = data.get('position');
 
-    fetch('http://localhost:3000/users', {
+    fetch('http://34.244.30.205:3000/users', {
     method: 'POST',
     headers: {
       'user-agent': 'Mozilla/4.0 MDN Example',
@@ -99,7 +99,7 @@ handleUserUpdate(e){
     const data = new FormData(e.target);
     var name = data.get('name');
     var position = data.get('position');
-    fetch('http://localhost:3000/users/'+data.get('_id'), {
+    fetch('http://34.244.30.205:3000/users/'+data.get('_id'), {
     method: 'PUT',
     headers: {
       'user-agent': 'Mozilla/4.0 MDN Example',

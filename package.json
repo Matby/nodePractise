@@ -1,0 +1,28 @@
+{
+  "name": "octo3harjoitus",
+  "version": "1.0.0",
+  "description": "REST rajapinta Octo3:lle",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Matby/nodePractise.git"
+  },
+  "author": "Matias K",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Matby/nodePractise/issues"
+  },
+  "homepage": "https://github.com/Matby/nodePractise#readme",
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  },
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "mongoose": "^5.1.5"
+  }
+}

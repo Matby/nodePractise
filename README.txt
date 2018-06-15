@@ -14,5 +14,8 @@ Mongoose: Ohjailee MongoDB:tä
 
 Käyttö:
 Potkaise MongoDB ylös (windowssilla [mongon asennus kansio]/[versio]/bin/mongod.exe)
-Potkaise Node.js palvelin ylös ()
-Potkaise React-UI ylös. 
+(Amazonilla katso nämä ohjeet: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-amazon/)
+
+Potkaise Node.js palvelin ylös (asenna node.js, aja projektin kansiossa npm install ja npm start)
+
+Potkaise React-UI ylös. (asenna node.js, aja projektin kansiossa npm install ja npm start)

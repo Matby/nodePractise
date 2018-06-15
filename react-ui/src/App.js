@@ -6,6 +6,9 @@ class App extends Component {
   users = [];
   constructor(){
     super();
+    //&this.handleNewUser = this.handleNewUser.bind(this);
+    this.handleUserUpdate = this.handleUserUpdate.bind(this);
+
     this.state = {
       tasks: [],
       users : [],
@@ -19,58 +22,41 @@ class App extends Component {
         {this.state.users.map((user) => {
           return(
             <div key = {user._id}>
-            <h2>{user.name}</h2>
-            <p>Käyttäjän positio: {user.position}</p>
-             <form onSubmit={(e) => this.removeUser(user, e)}><input type="submit" value="Poista" /></form>
+            <form onSubmit={this.handleUserUpdate}>
+            <label>käyttäjän nimi</label><input type="text" name="name" defaultValue={user.name}></input>
+            <input type="hidden" name="_id" value={user._id}/>
+            <label>Käyttäjän positio</label><input type="text" name="position" defaultValue={user.position}></input>            
+            <input type="submit" value="Muokkaa käyttäjää" />
+            </form>
+             <form onSubmit={(e) => this.removeUser(user, e)}><input type="submit" value="Poista käyttäjä" /></form>
             </div>
           )
         })}
         
-        <form action = "http://localhost:3000/users" method="post">
-        {/*<form onSubmit={this.handleNewUser}> this works, but node does not understand the data it sends*/}
+        {/*<form action = "http://localhost:3000/users" method="post">*/}
+        <form onSubmit={this.handleNewUser}>
           <label>
             Nimi:
             <input type="text" name="name" />
             Positio:
-            <input type="text" name="name" />
+            <input type="text" name="position" />
           </label>
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Lisää käyttäjä" />
         </form>
 
 
       </div>
 
-        <div className="container1">
-          <h1>Tehtävät</h1>
-          {this.state.tasks}
-        </div>
       </div>
     )
   }
   
   componentDidMount(){    
-    fetch('http://localhost:3000/tasks')
-    .then(results => {
-      return results.json();
-    }).then(data => {
-      let tasks = data.map((task) => {
-        return(
-        <div key = {task._id}>
-        <h2>{task.name}</h2>
-        <p>Tehtävän tila: {task.status}</p>
-        <p>Tehtävää suorittaa: {task.assignedTo}</p>
-        </div>
-        )
-      })
-      this.setState({tasks: tasks});
-      
-    })
       fetch('http://localhost:3000/users').then(results => {
       return results.json();
       }).then(data => {
         let users = data;
         this.setState({users: users});
-
       })
   }
 
@@ -93,9 +79,36 @@ class App extends Component {
 handleNewUser(e){
     e.preventDefault();
     const data = new FormData(e.target);
+    var name = data.get('name');
+    var position = data.get('position');
+
     fetch('http://localhost:3000/users', {
     method: 'POST',
-    body: 'name='+data.get('name')+'&position='+data.get('position')});
+    headers: {
+      'user-agent': 'Mozilla/4.0 MDN Example',
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify({name:name, position:position})})
+    .then(res => {
+        return res;
+    }).catch(err => err);
+}
+
+handleUserUpdate(e){
+    e.preventDefault();
+    const data = new FormData(e.target);
+    var name = data.get('name');
+    var position = data.get('position');
+    fetch('http://localhost:3000/users/'+data.get('_id'), {
+    method: 'PUT',
+    headers: {
+      'user-agent': 'Mozilla/4.0 MDN Example',
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify({name:name, position:position})})
+    .then(res => {
+        return res;
+    }).catch(err => err);
 }
 
 }
